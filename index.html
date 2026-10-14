@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Generator — Варіант 11</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="page-header">
+        <div class="header-inner">
+            <p class="eyebrow">Лабораторна робота · JavaScript</p>
+            <h1>CSS Generator</h1>
+            <p class="subtitle">Інтерактивний генератор CSS-властивостей</p>
+            <p class="student-name">Варіант № 11: <code>letter-spacing</code> та <code>text-transform</code></p>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="workspace" aria-label="Налаштування CSS">
+            <div class="panel controls-panel">
+                <div class="section-heading">
+                    <p class="eyebrow">Налаштування</p>
+                    <h2>Властивості CSS</h2>
+                </div>
+
+                <div class="tabs" id="tabs-container" role="tablist" aria-label="Групи налаштувань">
+                    <button class="tab active" type="button" role="tab" aria-selected="true" data-tab="radius">Border radius</button>
+                    <button class="tab" type="button" role="tab" aria-selected="false" data-tab="typography">Типографіка</button>
+                </div>
+
+                <div class="tab-content active" role="tabpanel" data-content="radius">
+                    <p class="panel-description">Змінюй значення повзунків, щоб налаштувати кожен кут попереднього перегляду.</p>
+
+                    <label class="range-control" for="topLeft">
+                        <span>Верхній лівий кут <output id="topLeftValue">0 px</output></span>
+                        <input id="topLeft" type="range" min="0" max="100" value="0">
+                    </label>
+
+                    <label class="range-control" for="topRight">
+                        <span>Верхній правий кут <output id="topRightValue">0 px</output></span>
+                        <input id="topRight" type="range" min="0" max="100" value="0">
+                    </label>
+
+                    <label class="range-control" for="bottomRight">
+                        <span>Нижній правий кут <output id="bottomRightValue">0 px</output></span>
+                        <input id="bottomRight" type="range" min="0" max="100" value="0">
+                    </label>
+
+                    <label class="range-control" for="bottomLeft">
+                        <span>Нижній лівий кут <output id="bottomLeftValue">0 px</output></span>
+                        <input id="bottomLeft" type="range" min="0" max="100" value="0">
+                    </label>
+                </div>
+
+                <div class="tab-content" role="tabpanel" data-content="typography" hidden>
+                    <p class="panel-description">Це додаткові властивості індивідуального варіанта № 11.</p>
+
+                    <label class="range-control" for="letter-spacing">
+                        <span>Відстань між символами <output id="letter-spacing-value">2 px</output></span>
+                        <input id="letter-spacing" type="range" min="0" max="12" value="2" step="1">
+                    </label>
+
+                    <label class="select-control" for="text-transform">
+                        <span>Регістр тексту</span>
+                        <select id="text-transform">
+                            <option value="none">none — без змін</option>
+                            <option value="uppercase" selected>uppercase — великі літери</option>
+                            <option value="lowercase">lowercase — малі літери</option>
+                            <option value="capitalize">capitalize — перша літера слова велика</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="keyboard-hint"><kbd>Esc</kbd> — скинути повзунки до нуля</div>
+            </div>
+
+            <section class="panel preview-panel" aria-labelledby="preview-heading">
+                <div class="section-heading">
+                    <p class="eyebrow">Результат</p>
+                    <h2 id="preview-heading">Preview</h2>
+                </div>
+                <div class="preview" id="preview">
+                    <span class="preview-label">Попередній перегляд</span>
+                    <p class="preview-text">Це приклад тексту для попереднього перегляду CSS.</p>
+                    <button class="preview-button" id="preview-button" type="button">Натисни мене</button>
+                </div>
+                <p class="coordinates" id="coordinates" aria-live="polite">X: 0; Y: 0</p>
+                <p class="small-note">Рухай курсор над блоком, щоб побачити координати. Клік по кнопці всередині Preview зупиняє поширення події.</p>
+            </section>
+        </section>
+
+        <section class="panel code-panel" aria-labelledby="code-heading">
+            <div class="section-heading">
+                <p class="eyebrow">Готовий результат</p>
+                <h2 id="code-heading">CSS-код</h2>
+            </div>
+            <textarea id="css-code" rows="5" readonly aria-label="Згенерований CSS-код"></textarea>
+            <div class="code-actions">
+                <button class="primary-button" id="copy-button" type="button">Копіювати CSS</button>
+                <p class="status-message" id="copy-message" role="status" aria-live="polite"></p>
+            </div>
+        </section>
+
+        <section class="panel preset-panel" aria-labelledby="preset-heading">
+            <div class="section-heading">
+                <p class="eyebrow">Збереження налаштувань</p>
+                <h2 id="preset-heading">Назва пресета</h2>
+            </div>
+            <form id="preset-form" novalidate>
+                <label class="select-control" for="preset-name">
+                    <span>Введи назву пресета</span>
+                    <input id="preset-name" name="preset-name" type="text" placeholder="Наприклад, М'які кути" autocomplete="off" aria-describedby="preset-error">
+                </label>
+                <p class="form-message" id="preset-error" role="alert" aria-live="polite"></p>
+                <button class="primary-button" type="submit">Перевірити пресет</button>
+            </form>
+        </section>
+
+        <section class="info-section">
+            <p class="eyebrow">Керування подіями</p>
+            <h2>Як перевірити роботу</h2>
+            <p>Перемикай вкладки та змінюй повзунки. Згенерований CSS оновлюється автоматично. Натисни <kbd>Esc</kbd>, щоб скинути повзунки; прокрути сторінку вниз, щоб з'явилася кнопка повернення нагору.</p>
+        </section>
+    </main>
+
+    <button class="scroll-top" id="scroll-top" type="button" aria-label="Повернутися на початок сторінки">↑</button>
+
+    <footer class="page-footer">
+        <p>Шкляр З. І. · Шкляр Захар Іванович</p>
+    </footer>
+</body>
+</html>
